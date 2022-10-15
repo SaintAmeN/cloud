@@ -36,4 +36,5 @@ build/
 **/target/
 **/*.iml
 
+!data/prometheus/
 data/

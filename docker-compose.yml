@@ -1,6 +1,34 @@
 version: "3.8"
 
 services:
+  mysql:
+    container_name: mysqlroot
+    image: mysql/mysql-server:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - ./data/mysql:/data/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - cloud-network
+#  mongo:
+#    image: mongo:latest
+#    container_name: isa-mongo
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=root
+#      - MONGO_INITDB_ROOT_PASSWORD=root
+#      - MONGO_INITDB_DATABASE=isa_client
+#    ports:
+#      #     port wewnętrzny mapowany na zewnętrzny
+#      #     prawa strona to port w kontenerze, lewa to port mapowany na hoście
+#      - 27017:27017
+#    volumes:
+#      #     mapowanie katalogu, prawa strona to katalog w kontenerze
+#      - ./data/db:/data/db
   zookeeper:
     image: zookeeper:3.6.1
     container_name: zookeeper
@@ -33,6 +61,30 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_LOG_RETENTION_MS: 5000
       KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 1000
-
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    networks:
+      - b_network
+    volumes:
+      - ./data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    links:
+      - authorization-service:authorizationservicehost
+      - event-service:eventservicehost
+      - product-service:productservicehost
+  consul:
+    container_name: consul
+    image: consul
+    ports:
+      - "8500:8500"
+      - "8600:8600/udp"
+    command: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
+    networks:
+      - b_network
+    volumes:
+      - ./dockers/consul/data:/consul/data
+      - ./dockers/consul/config:/consul/config
 networks:
   cloud-network:

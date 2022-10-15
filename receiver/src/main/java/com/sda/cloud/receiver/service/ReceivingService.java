@@ -28,4 +28,8 @@ public class ReceivingService {
 
         receivedMessages.add(message);
     }
+
+    public List<ProcessingMessage> getProcessedMessages() {
+        return receivedMessages;
+    }
 }
