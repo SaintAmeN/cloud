@@ -67,13 +67,14 @@ services:
     ports:
       - 9090:9090
     networks:
-      - b_network
+      - cloud-network
     volumes:
       - ./data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    links:
-      - authorization-service:authorizationservicehost
-      - event-service:eventservicehost
-      - product-service:productservicehost
+#    depends_on:
+#      - eureka
+#      - gateway
+#      - processing
+#      - receiver
   consul:
     container_name: consul
     image: consul
@@ -82,9 +83,9 @@ services:
       - "8600:8600/udp"
     command: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
     networks:
-      - b_network
+      - cloud-network
     volumes:
-      - ./dockers/consul/data:/consul/data
-      - ./dockers/consul/config:/consul/config
+      - ./data/consul/data:/consul/data
+      - ./data/consul/config:/consul/config
 networks:
   cloud-network:
