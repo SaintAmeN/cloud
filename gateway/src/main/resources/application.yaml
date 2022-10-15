@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    should-enforce-registration-at-init: true
+    fetch-registry: true
+    refresh:
+      enable: true
+  instance:
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: cloud-gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: cloud-processing-service
+          uri: lb://cloud-processing-service
+          predicates:
+            - Path=/api/process
+            - Path=/api/processing/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
