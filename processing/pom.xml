@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.sda.cloud</groupId>
     <artifactId>processing</artifactId>
-    <version>1.0</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <name>Cloud processing</name>
     <description>Cloud processing</description>
@@ -55,6 +55,11 @@
             <groupId>com.sda.cloud</groupId>
             <artifactId>shared</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

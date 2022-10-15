@@ -2,6 +2,28 @@
 # This assumes that your Prometheus instance can access this application on localhost:8080
 
 global:
-  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
+
+scrape_configs:
+  - job_name: 'Cloud - Eureka Service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'eureka:8761' ]
+  - job_name: 'Cloud - Gateway Service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'gateway:8080' ]
+  - job_name: 'Cloud - Processing Service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'processing:8081' ]
+  - job_name: 'Cloud - Receiver Service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'receiver:8082' ]
