@@ -22,6 +22,5 @@ public class ProcessingController {
     @GetMapping()
     public void process(){
         log.info("Called processing endpoint");
-
     }
 }

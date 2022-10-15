@@ -12,6 +12,7 @@
         <module>processing</module>
         <module>eureka</module>
         <module>gateway</module>
+        <module>receiver</module>
     </modules>
 
     <build>

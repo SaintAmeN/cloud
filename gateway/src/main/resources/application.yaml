@@ -26,6 +26,11 @@ spring:
           uri: lb://cloud-processing-service
           predicates:
             - Path=/api/process
-            - Path=/api/processing/**
           filters:
             - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
