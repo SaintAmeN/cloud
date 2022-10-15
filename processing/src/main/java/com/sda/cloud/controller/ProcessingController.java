@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,12 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/process")
+@RequestMapping("/api/process")
 public class ProcessingController {
     private final ProcessingService processingService;
 
     @GetMapping()
-    public void process(){
+    public void process(@RequestParam(required = false) String message){
         log.info("Called processing endpoint");
+        processingService.handle(message);
     }
 }
