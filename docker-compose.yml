@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  zookeeper:
+    image: zookeeper:3.6.1
+    container_name: zookeeper
+    restart: always
+    networks:
+      - cloud-network
+    ports:
+      - "2181:2181"
+    volumes:
+      - ./data/zookeeper:/bitnami/zookeeper
+  kafka:
+    image: wurstmeister/kafka:2.12-2.5.0
+    container_name: kafka
+    restart: always
+    networks:
+      - cloud-network
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    volumes:
+      - ./data/kafka:/kafka
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: DOCKER_INTERNAL://:29092,DOCKER_EXTERNAL://:9092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://127.0.0.1:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_RETENTION_MS: 5000
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 1000
+
+networks:
+  cloud-network:
