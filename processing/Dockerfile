@@ -7,4 +7,5 @@ WORKDIR /app/
 COPY target/processing-0.0.1-SNAPSHOT.jar /app/
 
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "target/processing-0.0.1-SNAPSHOT.jar"]
+#ENTRYPOINT ["java", "-jar", "target/processing-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "processing-0.0.1-SNAPSHOT.jar"]

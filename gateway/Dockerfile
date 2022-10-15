@@ -7,4 +7,5 @@ WORKDIR /app/
 COPY target/gateway-0.0.1-SNAPSHOT.jar /app/
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "target/gateway-0.0.1-SNAPSHOT.jar"]
+#ENTRYPOINT ["java", "-jar", "target/gateway-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "gateway-0.0.1-SNAPSHOT.jar"]

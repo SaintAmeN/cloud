@@ -7,4 +7,5 @@ WORKDIR /app/
 COPY target/receiver-0.0.1-SNAPSHOT.jar /app/
 
 EXPOSE 8082
-ENTRYPOINT ["java", "-jar", "target/receiver-0.0.1-SNAPSHOT.jar"]
+#ENTRYPOINT ["java", "-jar", "target/receiver-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "receiver-0.0.1-SNAPSHOT.jar"]

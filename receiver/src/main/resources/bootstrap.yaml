@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: cloud-receiver-service
+  cloud:
+    consul:
+      host: consul
+      config:
+        format: yaml

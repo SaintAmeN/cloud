@@ -14,8 +14,8 @@ spring:
   application:
     name: cloud-eureka-server
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'

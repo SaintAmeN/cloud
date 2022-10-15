@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: cloud-gateway-service
+  cloud:
+    consul:
+      host: consul
+      config:
+        format: yaml

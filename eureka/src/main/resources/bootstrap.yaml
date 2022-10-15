@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      config:
+        format: yaml
